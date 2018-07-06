@@ -1,0 +1,131 @@
+
+
++ {% load staticfiles %}
+<!DOCTYPE html>
+<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+
+   <!--- Basic Page Needs
+   ================================================== -->
+   <meta charset="utf-8">
+	<title>霄哥-朝花夕拾</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+   <!-- Mobile Specific Metas
+   ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+    ================================================== -->
+
+   <link rel="stylesheet" href="{% static 'blog/css/default.css' %}">
+	<link rel="stylesheet" href="{% static 'blog/css/layout.css' %}">
+   <link rel="stylesheet" href="{% static 'blog/css/media-queries.css' %}">
+   <link rel="stylesheet" href="{% static 'blog/css/magnific-popup.css' %}">
+
+   <!-- Script
+   ================================================== -->
+	<script src="{% static 'blog/js/modernizr.js' %}"></script>
+
+   <!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="{% static 'blog/favicon.png' %}" >
+
+</head>
+
+<body>
+
+   
+   <nav id="nav-wrap">
+
+      <a class="mobile-btn" href="index.html#nav-wrap" title="Show navigation">Show navigation</a>
+      <a class="mobile-btn" href="index.html#" title="Hide navigation">Hide navigation</a>
+
+      <ul id="nav" class="nav">
+         <li class="current"><a class="smoothscroll" href="{% url 'home' %}">Home</a></li>
+      </ul> <!-- end #nav -->
+   </nav> <!-- end #nav-wrap -->
+
+
+
+   <!-- Resume Section
+   ================================================== -->
+   <section id="resume">
+
+      <!-- Education
+      ----------------------------------------------- -->
+      <div class="row education">
+
+         {% for post in post_list %}
+         <div class="three columns header-col">
+            <h1><span>{{ post.title }}</span></h1>
+         </div>
+
+         <div class="nine columns main-col">
+
+            <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h3><a href="{{ post.id }}">{{ post.title }}</a></h3>
+                  <p class="info">{{ post.category.name }} <span>&bull;</span> {{ post.author }} <span>&bull;</span> <em class="date">{{ post.created_time }}</em></p>
+
+                  <p>
+                     {{ post.short_text }}
+                  </p>
+
+               </div>
+
+            </div> <!-- item end -->
+
+         </div> <!-- main-col end -->
+         {% endfor %}
+
+      </div> <!-- End Education -->
+   </section> <!-- Resume Section End-->
+
+
+   <!-- footer
+   ================================================== -->
+   <footer>
+
+      <div class="row">
+
+         <div class="twelve columns">
+
+            <ul class="social-links">
+               <li><a href="index.html#"><i class="fa fa-facebook"></i></a></li>
+               <li><a href="index.html#"><i class="fa fa-twitter"></i></a></li>
+               <li><a href="index.html#"><i class="fa fa-instagram"></i></a></li>
+            </ul>
+
+            <ul class="copyright">
+               <li>&copy; 2018 <a href="{% url 'home' %}" title="霄哥-朝花夕拾" target="_blank">霄哥-朝花夕拾</a></li>
+               <li>Design by <a title="霄哥-朝花夕拾" href="{% url 'home' %}">Jack Ding</a></li>
+            </ul>
+
+         </div>
+
+      </div>
+
+   </footer> <!-- Footer End-->
+
+
+   <!-- Java Script
+   ================================================== -->
+   <script src="{% static 'blog/js/jquery.min.js' %}"></script>
+   <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
+   <script type="text/javascript" src="{% static 'blog/js/jquery-migrate-1.2.1.min.js' %}"></script>
+
+   <script src="{% static 'blog/js/jquery.flexslider.js' %}"></script>
+   <script src="{% static 'blog/js/waypoints.js' %}"></script>
+   <script src="{% static 'blog/js/jquery.fittext.js' %}"></script>
+   <script src="{% static 'blog/js/magnific-popup.js' %}"></script>
+   <script src="{% static 'blog/js/init.js' %}"></script>
+
+</body>
+
+</html>
