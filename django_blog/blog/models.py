@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from DjangoUeditor.models import UEditorField
 
 # 创建分类class
 class Category(models.Model):
@@ -26,7 +26,8 @@ class Post(models.Model):
     title = models.CharField(max_length = 70)
 
     #文章正文
-    body = models.TextField()
+    # body = models.TextField()
+    body  = UEditorField(verbose_name=u'作品正文',width=800, height=600, imagePath="ueditor/imgage/",filePath="ueditor/files/", default='')
 
     #文章创建的时间
     created_time = models.DateTimeField()
@@ -45,7 +46,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     #文章图片
-    # image = models.ImageField(default='default.png', upload_to='images/')
+    image = models.ImageField(default='default.jpg', upload_to='images/')
 
     def __str__(self):
         return self.title

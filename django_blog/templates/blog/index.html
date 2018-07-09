@@ -1,10 +1,152 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ title }}</title>
-</head>
-<body>
-<h1>{{ welcome }}</h1>
-</body>
-</html>
+
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+
+{% block main %}
+<!-- Header
+   ================================================== -->
+   <header id="home">
+
+      <nav id="nav-wrap">
+
+         <a class="mobile-btn" href="index.html#nav-wrap" title="Show navigation">Show navigation</a>
+	      <a class="mobile-btn" href="index.html#" title="Hide navigation">Hide navigation</a>
+
+         <ul id="nav" class="nav">
+            <li class="current"><a href="{% url 'home'%}">Home</a></li>
+            <li><a  href="blog">Blog</a></li>
+	        <li><a  href="{% url 'home'%}#about">About</a></li>
+         </ul> <!-- end #nav -->
+
+      </nav> <!-- end #nav-wrap -->
+
+      <div class="row banner">
+         <div class="banner-text">
+            <h1 class="responsive-headline">Just Coding...</h1>
+			<h3>道上人称"霄哥" <span>一位中老年计算机从业者</span>, <span>在这网络自留地里</span> 我会分享我的生活、工作、创意及想法 <span>欢迎正常或不正常的人类到此浏览.</span></h3>
+            <hr />
+            <img src="{{url_photo_1}}" height=100 width=300>
+            <img src="{{url_photo_2}}" height=100 width=300>
+            <img src="{{url_photo_3}}" height=100 width=300>
+            <h3><span>Bing每日壁纸</span></h3>
+            <hr />
+         </div>
+      </div>
+
+      <p class="scrolldown">
+         <!--a class="smoothscroll" title="Back to About" href="{% url 'home'%}#about"><i class="icon-down-circle"></i></a-->
+         <a class="smoothscroll" title="Back to About" href="{% url 'home'%}#about"><i class="icon-down-circle"></i></a>
+      </p>
+
+   </header> <!-- Header End -->
+
+
+   <!-- About Section
+   ================================================== -->
+   <section id="about">
+
+      <div class="row">
+
+         <div class="three columns">
+
+            <img class="profile-pic"  src="{% static 'blog/images/me.png' %}" alt="" />
+
+         </div>
+
+         <div class="nine columns main-col">
+
+            <h2>关于我</h2>
+
+            <p>霄哥年方近40，81年生人，老杭州人，是一位中老年计算机及嵌入式设计从业者，从初中就已开始自制印制电路板，掐指一算入坑已近20余年，虽已工龄较长，但一直对能coding的东西都很感兴趣并乐此不疲，喜欢动手制作小玩意。在这小小的几篇网页中，我会分享我的生活、工作、想法及创意。
+            欢迎交流。
+            </p>
+
+            <div class="row">
+
+               <div class="columns contact-details">
+
+                  <h2>技能</h2>
+                  <p class="address">
+						   <span>C</span><br>
+						   <span>Java<br>
+						   <span>Python<br>
+				     </p>
+
+               </div>
+
+               <div class="columns contact-details">
+                  <h2>联系</h2>
+                  <p class="address">
+						   <span>中国-浙江-杭州</span><br>
+						   <span>github:dingxiao88<br>
+						   <span>twitter:dingxiao88<br>
+						   <span>facebook:dingxiao<br>
+                     <span>email:dingxiao88@163.com</span>
+				      </p>
+               </div>
+
+               <!--div class="columns download">
+                  <p>
+                     <a href="index.html#" class="button"><i class="fa fa-download"></i>Download Resume</a>
+                  </p>
+               </div-->
+
+            </div> <!-- end row -->
+
+         </div> <!-- end .main-col -->
+
+      </div>
+
+   </section> <!-- About Section End-->
+
+
+   <!-- Resume Section
+   ================================================== -->
+   <section id="resume">
+
+      <!-- Education
+      ----------------------------------------------- -->
+      <div class="row education">
+
+         {% for post in post_list %}
+         <div class="three columns header-col">
+            <h1><span>更新的Blog</span></h1>
+         </div>
+
+         <div class="nine columns main-col">
+
+            <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h3><a href="blog/{{ post.id }}">{{ post.title }}</a></h3>
+                  <p class="info">{{ post.category.name }} <span>&bull;</span> {{ post.author }} <span>&bull;</span> <em class="date">{{ post.created_time }}</em></p>
+
+                  <img src="{{ post.image.url }}" width="400px" height="300px">
+
+                  <p>
+                     {{ post.short_text }}
+                  </p>
+
+               </div>
+
+            </div> <!-- item end -->
+
+         </div> <!-- main-col end -->
+         {% endfor %}
+
+      </div> <!-- End Education -->
+
+   </section> <!-- Resume Section End-->
+
+{% endblock main %}
+
+
+
+{% block go_to %}
+
+    <!-- 底部圆形按钮-用于回归页面置顶位置 -->
+	<div id="go-top"><a class="smoothscroll" title="Back to Top" href="{% url 'home'%}#home"><i class="icon-up-open"></i></a></div>
+
+{% endblock go_to %}

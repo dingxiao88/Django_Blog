@@ -1,0 +1,88 @@
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if lt IE 8 ]><html class="no-js ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="no-js ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 8)|!(IE)]><!--><html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+
+   <!--- Basic Page Needs
+   ================================================== -->
+   <meta charset="utf-8">
+	<title>朝花夕拾</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+   <!-- Mobile Specific Metas
+   ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+    ================================================== -->
+   <link rel="stylesheet" href="{% static 'blog/css/default.css' %}">
+	<link rel="stylesheet" href="{% static 'blog/css/layout.css' %}">
+   <link rel="stylesheet" href="{% static 'blog/css/media-queries.css' %}">
+   <link rel="stylesheet" href="{% static 'blog/css/magnific-popup.css' %}">
+   <link rel="stylesheet" href="{% static 'blog/css/highlights/colorful.css' %}"
+
+   <!-- Script
+   ================================================== -->
+	<script src="{% static 'blog/js/modernizr.js' %}"></script>
+
+   <!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="{% static 'blog/me.png' %}" >
+
+</head>
+
+<body>
+
+   {% block main %}
+   
+
+   {% endblock main %}
+
+   <!-- footer
+   ================================================== -->
+   <footer>
+
+      <div class="row">
+
+         <div class="twelve columns">
+
+            <ul class="social-links">
+               <li><a href="index.html#"><i class="fa fa-facebook"></i></a></li>
+               <li><a href="index.html#"><i class="fa fa-twitter"></i></a></li>
+               <li><a href="index.html#"><i class="fa fa-instagram"></i></a></li>
+            </ul>
+
+            <ul class="copyright">
+               <li><a>&copy; 2018 Pwoer by Django</a></li>
+               <li><a>Design by Jack Din</a></li>
+            </ul>
+
+         </div>
+         
+         {% block go_to %}
+          <!-- 底部圆形按钮-用于回归页面置顶位置 -->
+         {% endblock go_to %}
+
+      </div>
+
+   </footer> <!-- Footer End-->
+
+   <!-- Java Script
+   ================================================== -->
+   <script src="{% static 'blog/js/jquery.min.js' %}"></script>
+   <script>window.jQuery || document.write('<script src="js/jquery-1.10.2.min.js"><\/script>')</script>
+   <script type="text/javascript" src="{% static 'blog/js/jquery-migrate-1.2.1.min.js' %}"></script>
+
+   <script src="{% static 'blog/js/jquery.flexslider.js' %}"></script>
+   <script src="{% static 'blog/js/waypoints.js' %}"></script>
+   <script src="{% static 'blog/js/jquery.fittext.js' %}"></script>
+   <script src="{% static 'blog/js/magnific-popup.js' %}"></script>
+   <script src="{% static 'blog/js/init.js' %}"></script>
+
+</body>
+
+</html>

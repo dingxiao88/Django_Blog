@@ -16,10 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls import url, include
 
+#ueditor必须加
+from django.conf.urls.static import static
+from django.conf import settings
+
 urlpatterns = [
 
     url(r'^admin/', admin.site.urls), #已admin开头地址匹配
     url(r'', include('blog.urls')),   #默认网址匹配到blog的urls
+    url(r'^ueditor/',include('DjangoUeditor.urls')),
 
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #ueditor必须加
 

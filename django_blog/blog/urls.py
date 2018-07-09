@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from . import views   #从本级目录导入views文件
 
+
 urlpatterns = [
     
     #blog首页
