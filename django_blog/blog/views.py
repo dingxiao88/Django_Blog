@@ -3,6 +3,8 @@ from .models import Post
 from . import biying
 
 import markdown   #增加markdown前端渲染功能
+
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger  #增加分页功能
 # Create your views here.
 
 
@@ -19,7 +21,22 @@ def home(request):
 
 def blog(request):
     post_list = Post.objects.all().order_by('-created_time')
-    return render(request, 'blog/blog.html', context={'post_list': post_list})
+
+    #使用Paginator对post对象进行分页
+    paginator = Paginator(post_list,5)  #每页显示5篇Blog
+
+    page = request.GET.get('page')
+
+    try:
+        post_list_new = paginator.page(page)
+    except PageNotAnInteger:
+        # 如果用户请求的页码号不是整数，显示第一页
+        post_list_new = paginator.page(1)
+    except EmptyPage:
+        # 如果用户请求的页码号超过了最大页码号，显示最后一页
+        post_list_new = paginator.page(paginator.num_pages)
+
+    return render(request, 'blog/blog.html', context={'post_list': post_list_new})
 
 
 

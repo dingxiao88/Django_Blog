@@ -44,6 +44,23 @@
          </div> <!-- main-col end -->
          {% endfor %}
 
+
+         <div class="dx" >
+             <span class="step-links">
+                 {% if post_list.has_previous %}
+                     <a href="?page={{ post_list.previous_page_number }}">上页</a>
+                 {% endif %}
+
+                 <span>
+                     当前页 {{ post_list.number }} of 共{{ post_list.paginator.num_pages }}
+                 </span>
+
+                 {% if post_list.has_next %}
+                     <a href="?page={{ post_list.next_page_number }}">下页</a>
+                 {% endif %}
+             </span>
+         </div>
+
       </div> <!-- End Education -->
 
    </section> <!-- Resume Section End-->
