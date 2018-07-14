@@ -42,7 +42,11 @@ def blog(request):
 
 def blog_detail(request,pk):
 
+    #获得该文章
     post = get_object_or_404(Post, pk=pk)
+
+    #文章阅读量 +1
+    post.increase_views()
 
     #文章正文增加markdown前端渲染功能
     post.body = markdown.markdown(post.body,extensions=['markdown.extensions.extra', 'markdown.extensions.codehilite', 'markdown.extensions.toc',])

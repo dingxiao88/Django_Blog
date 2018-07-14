@@ -30,7 +30,7 @@
                   <img src="{{ post.image.url }}" width="400px" height="300px">
 
                   <!--h3>{{ post.title }}</h3-->
-                  <p class="info">{{ post.category.name }} <span>&bull;</span> {{ post.author }} <span>&bull;</span> <em class="date">{{ post.created_time }}</em></p>
+                  <p class="info">{{ post.category.name }} <span>&bull;</span> {{ post.author }} <span>&bull;</span> 阅读数:{{post.views}} <span>&bull;</span> <em class="date">{{ post.created_time }}</em></p>
 
                   <p>
                      {{ post.body | safe }}

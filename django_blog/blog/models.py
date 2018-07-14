@@ -48,12 +48,21 @@ class Post(models.Model):
     #文章图片
     image = models.ImageField(default='default.jpg', upload_to='images/')
 
+    #文章阅读量
+    views = models.PositiveIntegerField(default=0)
+
+    #返回文章标题
     def __str__(self):
         return self.title
 
     #自动生成文章摘要
     def short_text(self):
         return self.body[:60] + '...'
+
+    #文章阅读数自增
+    def increase_views(self):
+        self.views += 1
+        self.save(update_fields=['views'])
 
     # 自定义 get_absolute_url 方法
     # 记得从 django.urls 中导入 reverse 函数
