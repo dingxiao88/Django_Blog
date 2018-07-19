@@ -52,3 +52,7 @@ def blog_detail(request,pk):
     post.body = markdown.markdown(post.body,extensions=['markdown.extensions.extra', 'markdown.extensions.codehilite', 'markdown.extensions.toc',])
 
     return render(request, 'blog/blog_detail.html', context={'post': post})
+
+
+def video(request):
+    return render(request, 'blog/video.html')

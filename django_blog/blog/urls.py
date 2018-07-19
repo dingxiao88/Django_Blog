@@ -26,4 +26,7 @@ urlpatterns = [
     #blog详细页
     url(r'^blog/(?P<pk>[0-9]+)/$', views.blog_detail, name='blog_detail'),
 
+    #增加video入口
+    url(r'^video/$', views.video, name='video'), #video入口
+
 ]

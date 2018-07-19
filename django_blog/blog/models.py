@@ -27,7 +27,7 @@ class Post(models.Model):
 
     #文章正文
     # body = models.TextField()
-    body  = UEditorField(verbose_name=u'作品正文',width=800, height=600, imagePath="ueditor/imgage/",filePath="ueditor/files/", default='')
+    body  = UEditorField(verbose_name=u'作品正文',width=800, height=600, imagePath="ueditor/images",filePath="ueditor/files/", default='')
 
     #文章创建的时间
     created_time = models.DateTimeField()

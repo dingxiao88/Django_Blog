@@ -10,8 +10,8 @@
 
       <nav id="nav-wrap">
 
-         <a class="mobile-btn" href="index.html#nav-wrap" title="Show navigation">Show navigation</a>
-	      <a class="mobile-btn" href="index.html#" title="Hide navigation">Hide navigation</a>
+         <a class="mobile-btn" href="{% url 'home'%}#nav-wrap" title="Show navigation">Show navigation</a>
+	      <a class="mobile-btn" href="{% url 'home'%}" title="Hide navigation">Hide navigation</a>
 
          <ul id="nav" class="nav">
             <li class="current"><a href="{% url 'home'%}">Home</a></li>
@@ -120,13 +120,13 @@
 
                <div class="twelve columns">
 
-                  <h3><a href="blog/{{ post.id }}">{{ post.title }}</a></h3>
+                  <h3> {{ post.title }} </h3>
                   <p class="info">{{ post.category.name }} <span>&bull;</span> {{ post.author }} <span>&bull;</span> 阅读数:{{post.views}} <span>&bull;</span> <em class="date">{{ post.created_time }}</em></p>
 
                   <img src="{{ post.image.url }}" width="400px" height="300px">
 
                   <p>
-                     {{ post.short_text }}
+                     <a href="blog/{{ post.id }}">进入阅读---></a>
                   </p>
 
                </div>

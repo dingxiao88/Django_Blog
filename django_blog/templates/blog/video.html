@@ -1,0 +1,176 @@
+
+{% extends 'blog/base.html' %}
+{% load staticfiles %}
+
+
+
+{% block main %}
+
+   <ul id="nav" class="nav">
+      <li class="current"><a href="{% url 'home'%}">Home</a></li>
+   </ul> <!-- end #nav -->
+
+   <!-- Resume Section
+   ================================================== -->
+   <section id="resume">
+
+      <!-- Education
+      ----------------------------------------------- -->
+      <div class="row education">
+
+         <div class="three columns header-col">
+            <h1><span>Video</span></h1>
+            <canvas id="gaugeCanvas" width="100" height="100"/>
+         </div>
+
+         <div class="nine columns main-col">
+
+            <div class="row item">
+
+               <div class="twelve columns">
+
+                  <p>
+                     <a>Viwwwdeo></a>
+                     <button id="Init" onclick="Connect()">初始化</button>
+                     <br>
+                     <div id='container'></div>
+                  </p>
+
+               </div>
+
+            </div> <!-- item end -->
+
+         </div> <!-- main-col end -->
+
+      </div> <!-- End Education -->
+
+   </section> <!-- Resume Section End-->
+
+
+
+<script>
+      function publish(topic, message) {
+          message = new Paho.MQTT.Message(message);
+          message.destinationName = topic;
+          message.qos = 0;
+          client.send(message);
+      }
+
+      function Send_Msg(){
+
+        var Msg=document.getElementById("msg").value;
+
+        publish("dx",Msg);
+        //alert("ok"+Msg);
+
+        //@for py send pic
+        // client.publish('image', base64.b64encode(encimg), qos=0, retain=False)
+      }
+
+      function createUUID() {
+        var s = [];
+        var hexDigits = "0123456789abcdef";
+        for (var i = 0; i < 36; i++) {
+            s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+        }
+        s[14] = "4";  // bits 12-15 of the time_hi_and_version field to 0010
+        s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);  // bits 6-7 of the clock_seq_hi_and_reserved to 01
+        s[8] = s[13] = s[18] = s[23] = "-";
+
+        var uuid = s.join("");
+        return uuid;
+      }
+
+
+
+      var streams = [
+          [ "www.dx1023.com", 8884, "clientId", "pic", "rcr_" + createUUID() ],
+          // [ "broker.hivemq.com", 8000, "/mqtt", "demos/rcr/video2", "rcr_" + createUUID() ],
+          // [ "broker.hivemq.com", 8000, "/mqtt", "demos/rcr/video3", "rcr_" + createUUID() ],
+      ];
+     var tempGauge;
+
+
+      function Connect()
+      {
+            tempGauge = new steelseries.Radial('gaugeCanvas', {
+              gaugeType: steelseries.GaugeType.TYPE4,
+              minValue:-15,
+              maxValue:50,
+              size: 250,
+              frameDesign: steelseries.FrameDesign.STEEL,
+              knobStyle: steelseries.KnobStyle.STEEL,
+              pointerType: steelseries.PointerType.TYPE6,
+              lcdDecimals: 0,
+              section: null,
+              area: null,
+              titleString: 'Temperature',
+              unitString: 'C',
+              threshold: 100,
+              lcdVisible: true,
+              lcdDecimals: 2
+               });
+            tempGauge.setValue(''); //gives a blank display 'NaN' until broker has connected
+            tempGauge.setLedColor(steelseries.LedColor.RED_LED); //set the LED RED until connected
+
+
+          for( i=0; i<streams.length; i++ )
+          {
+              img = document.createElement( 'img' );
+              img.width = "640";
+              img.height = "480";
+              img.src='';
+              img.id = 'image_' + i;
+              container = document.getElementById( 'container' );
+              container.appendChild( img );
+
+              stream = streams[i]
+              // client = new Paho.MQTT.Client( stream[0],stream[1], stream[2], stream[4] );
+              client = new Paho.MQTT.Client( stream[0],stream[1], stream[2]);
+              client.idx = i
+
+              client.onMessageArrived = function ( message )
+              {
+
+                  var topic = message.destinationName;
+
+                  if(topic == "pic")
+                  {
+                    data = message.payloadBytes;
+                    img = document.getElementById( 'image_' + this.idx )
+                    img.src = 'data:image/png;base64,' +  btoa( String.fromCharCode.apply( null, data ) );
+                  }
+                  else if(topic == "dx")
+                  {
+                    document.querySelector("#meter").value = message.payloadString; //更新显示
+                    tempGauge.setValue(message.payloadString);
+                    tempGauge.setLedColor(steelseries.LedColor.GREEN_LED); //change status LED to GREEN on broker connection
+                  }
+
+              }.bind( client );
+
+              function onConnect(){
+                  stream = streams[ this.idx ]
+                  this.subscribe("dx");
+                  this.subscribe("pic");
+              }
+
+              client.connect( { onSuccess: onConnect.bind( client ) } );
+          }
+      }
+</script>
+
+
+
+{% endblock main %}
+
+
+{% block go_to %}
+
+   <!-- 底部圆形按钮-用于回归页面置顶位置 -->
+   <div id="go-top"><a class="smoothscroll" title="Back to Top" href="{% url 'blog'%}#nav"><i class="icon-up-open"></i></a></div>
+   
+{% endblock go_to %}
+
+
+
