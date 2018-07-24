@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Post
 from . import biying
+from . import zhihu_pachong
 
 import markdown   #增加markdown前端渲染功能
 
@@ -9,6 +10,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger  #增�
 
 
 def home(request):
+
+    zhihu = []
     
     post_list = Post.objects.all().order_by('-created_time')[:1]
 
@@ -16,7 +19,17 @@ def home(request):
     pic2 = biying.get_one_photo(1)
     pic3 = biying.get_one_photo(2)
 
-    return render(request, 'blog/index.html', context={'post_list': post_list, 'url_photo_1':pic1, 'url_photo_2':pic2, 'url_photo_3':pic3})
+    for index, i in enumerate(zhihu_pachong.zhihu()):
+        zhihu.append(i) 
+        if(index > 10):
+            break
+
+    # return render(request, 'blog/index.html', context={'post_list': post_list, 'url_photo_1':pic1, 
+    #              'url_photo_2':pic2, 'url_photo_3':pic3, 'zhihu_author':zhihu[0][0], 'zhihu_title':zhihu[1][0], 
+    #              'zhihu_url':zhihu[2][0], 'zhihu_image_url':zhihu[3][0], 'zhihu':zhihu})
+
+    return render(request, 'blog/index.html', context={'post_list': post_list, 'url_photo_1':pic1, 
+             'url_photo_2':pic2, 'url_photo_3':pic3, 'zhihu':zhihu})
 
 
 def blog(request):
@@ -56,3 +69,7 @@ def blog_detail(request,pk):
 
 def video(request):
     return render(request, 'blog/video.html')
+
+
+def test(request):
+    return render(request, 'blog/test.html')

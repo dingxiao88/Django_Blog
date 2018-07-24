@@ -4,6 +4,7 @@
 
 
 {% block main %}
+
 <!-- Header
    ================================================== -->
    <header id="home">
@@ -26,10 +27,12 @@
             <h1 class="responsive-headline">Just Coding...</h1>
 			<h3>道上人称"霄哥" <span>一位中老年计算机从业者</span>, <span>在这网络自留地里</span> 我会分享我的生活、工作、创意及想法 <span>欢迎正常或不正常的人类到此浏览.</span></h3>
             <hr />
-            <img src="{{url_photo_1}}" height=100 width=300>
-            <img src="{{url_photo_2}}" height=100 width=300>
-            <img src="{{url_photo_3}}" height=100 width=300>
-            <h3><span>Bing每日壁纸</span></h3>
+
+               <img src="{{url_photo_1}}" height=100 width=300>
+               <img src="{{url_photo_2}}" height=100 width=300>
+               <img src="{{url_photo_3}}" height=100 width=300>
+               <h3><span>Bing每日壁纸</span></h3>
+
             <hr />
          </div>
       </div>
@@ -100,7 +103,6 @@
 
    </section> <!-- About Section End-->
 
-
    <!-- Resume Section
    ================================================== -->
    <section id="resume">
@@ -139,6 +141,47 @@
       </div> <!-- End Education -->
 
    </section> <!-- Resume Section End-->
+
+
+    <!-- Portfolio Section
+   ================================================== -->
+   <section id="portfolio">
+
+      <div class="row">
+
+         <div class="twelve columns collapsed">
+
+            <h1>知乎每日更新</h1>
+            
+            <!-- portfolio-wrapper -->
+            <div id="portfolio-wrapper" class="bgrid-quarters s-bgrid-thirds cf">
+
+               {% for zhihu_data in zhihu %} 
+               <div class="columns portfolio-item">
+                  <div class="item-wrap">
+                     <a href="javascript:void(0);" onclick="window.open('{{ zhihu_data.post_target_url }}','_blank');" target="_blank">
+                        {# <img src="{{ zhihu_data.post_img_url }}" height=200 width=200> #}
+
+                        <img  src="{% static 'blog/images/zhihu/dx_0.jpg' %}" height=200 width=220>
+                       
+                        <div class="overlay">
+                           <div class="portfolio-item-meta">
+                              <h5>{{ zhihu_data.post_title }}</h5>
+                              <p>{{ zhihu_data.post_author }}</p>
+                           </div>
+                        </div>
+                        <div class="link-icon"><i class="icon-plus"></i></div>
+                     </a>
+                  </div>
+               </div> <!-- item end -->
+               {% endfor %}   
+
+            </div> <!-- portfolio-wrapper end -->
+            
+
+         </div> <!-- twelve columns end -->
+      </div>
+   </section> <!-- Portfolio Section End-->
 
 {% endblock main %}
 

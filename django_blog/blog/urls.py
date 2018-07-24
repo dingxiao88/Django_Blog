@@ -29,4 +29,7 @@ urlpatterns = [
     #增加video入口
     url(r'^video/$', views.video, name='video'), #video入口
 
+    #增加test入口
+    url(r'^test/$', views.test, name='test'),    #test
+
 ]
