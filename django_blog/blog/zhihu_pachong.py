@@ -13,7 +13,7 @@ import random
 import os
 
 
-
+#html post请求头部信息
 headers_str = '''Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36
 Mozilla/5.0(Macintosh;U;IntelMacOSX10_6_8;en-us)AppleWebKit/534.50(KHTML,likeGecko)Version/5.1Safari/534.50
 Mozilla/5.0(Windows;U;WindowsNT6.1;en-us)AppleWebKit/534.50(KHTML,likeGecko)Version/5.1Safari/534.50'''
@@ -68,18 +68,21 @@ def zhihu():
                 post.post_author=(i['target']['author']['name'])
                 post.post_title=(i['target']['question']['title'])
                 post.post_target_url=("https://www.zhihu.com/question/"+str(i['target']['question']['id'])+"/answer/"+str(i['target']['id']))
-                post.post_img_url=(i['target']['author']['avatar_url'])
+                post_img_url=(i['target']['author']['avatar_url'])
 
                 # print("index:"+str(post_count))
                 # print ("标题："+post.post_title+"---作者："+post.post_author+"url:"+post.post_target_url+"图片--img:"+post.post_img_url)
 
                 post_count = post_count + 1
+
+                #保存发表用户图片
+                save_img(post_img_url,'dx_{0}'.format(str(index)))
+
+                #转存数据
+                post.post_img_url= '/static/blog/images/zhihu/dx_{0}.jpg'.format(str(index))
                 
                 #知乎数据列表
                 zhihu_post.append(post)
-
-                #保存发表用户图片
-                save_img(post.post_img_url,'dx_{0}'.format(str(index)))
 
             else:
                 break
@@ -93,7 +96,7 @@ def zhihu():
 
 
 def save_img(img_url,file_name,file_path='blog\\static\\blog\\images\\zhihu'):
-    
+
     #保存图片到磁盘文件夹 file_path中，默认为当前脚本运行目录下的 book\img文件夹
     try:
         if not os.path.exists(file_path):
@@ -108,6 +111,7 @@ def save_img(img_url,file_name,file_path='blog\\static\\blog\\images\\zhihu'):
         print ('文件操作失败',e)
     except Exception as e:
         print ('错误 ：',e)
+
 
 
 class ZhiHu_Post():

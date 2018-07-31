@@ -26,5 +26,7 @@ urlpatterns = [
     url(r'', include('blog.urls')),   #默认网址匹配到blog的urls
     url(r'^ueditor/',include('DjangoUeditor.urls')),
 
+    url(r'', include('comments.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #ueditor必须加
 
