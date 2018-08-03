@@ -24,9 +24,10 @@ urlpatterns = [
 
     url(r'^admin/', admin.site.urls), #已admin开头地址匹配
     url(r'', include('blog.urls')),   #默认网址匹配到blog的urls
-    url(r'^ueditor/',include('DjangoUeditor.urls')),
+    url(r'^ueditor/',include('DjangoUeditor.urls')),  # 增加编辑器
 
-    url(r'', include('comments.urls')),
+    url(r'', include('comments.urls')),        # 增加评论功能
+    url(r'^captcha', include('captcha.urls')),  # 增加评论验证码
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #ueditor必须加
 

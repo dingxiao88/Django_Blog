@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'blog',
     'DjangoUeditor',
     'comments', # 注册新创建的 comments 应用
+    'captcha',  # 评论功能验证码功能
 ]
 
 
