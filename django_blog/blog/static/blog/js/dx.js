@@ -108,7 +108,7 @@ function Connect()
         $("#mqtt_recv_msg").append(message.payloadString+'\n'); 
       }
 
-      if(topic == "pic")
+      else if(topic == "pic")
       {
         if(target_recv_topic == "pic")
         {
