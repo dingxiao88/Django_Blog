@@ -4,6 +4,7 @@ var client;
 // mqtt服务基本要素
 var target_ip;
 var target_port;
+var target_user_id;
 var target_recv_topic;
 var target_send_topic;
 
@@ -78,6 +79,7 @@ function Connect()
 
   target_ip = $("#mqtt_ip").val();
   target_port = parseInt($("#mqtt_port").val());
+  target_user_id =  $("#mqtt_user_id").val();
   target_recv_topic = $("#mqtt_recv_tqp").val();
 
   // alert(""+target_ip+target_port+target_topic)
@@ -92,7 +94,7 @@ function Connect()
   container.appendChild( img );
 
   // 创建mqtt链接
-  client = new Paho.MQTT.Client( target_ip, target_port, "clientId");
+  client = new Paho.MQTT.Client( target_ip, target_port, target_user_id);
 
   client.onMessageArrived = function ( message )
   {
